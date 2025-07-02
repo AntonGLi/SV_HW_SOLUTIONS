@@ -1,0 +1,263 @@
+*** Fill and empty
+push 00          empty      [ 00 ]
+push 11                     [ 11 00 ]
+push 22                     [ 22 11 00 ]
+push 33                     [ 33 22 11 00 ]
+push 44                     [ 44 33 22 11 00 ]
+         pop 00        full [ 44 33 22 11 ]
+         pop 11             [ 44 33 22 ]
+         pop 22             [ 44 33 ]
+         pop 33             [ 44 ]
+         pop 44             [ ]
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 165  Scope: tb.monitor
+*** Fill half and run back-to-back, then empty
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 175  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 185  Scope: tb.monitor
+push 00                full [ 00 ]
+push 11                     [ 11 00 ]
+push 00  pop 00             [ 00 11 ]
+push 11  pop 11             [ 11 00 ]
+push 22  pop 00             [ 22 11 ]
+push 33  pop 11             [ 33 22 ]
+push 44  pop 22             [ 44 33 ]
+push 00  pop 33             [ 00 44 ]
+push 11  pop 44             [ 11 00 ]
+push 22  pop 00             [ 22 11 ]
+push 33  pop 11             [ 33 22 ]
+push 44  pop 22             [ 44 33 ]
+push 00  pop 33             [ 00 44 ]
+push 11  pop 44             [ 11 00 ]
+push 22  pop 00             [ 22 11 ]
+push 33  pop 11             [ 33 22 ]
+push 44  pop 22             [ 44 33 ]
+push 00  pop 33             [ 00 44 ]
+push 11  pop 44             [ 11 00 ]
+push 22  pop 00             [ 22 11 ]
+push 33  pop 11             [ 33 22 ]
+push 44  pop 22             [ 44 33 ]
+push 00  pop 33             [ 00 44 ]
+push 11  pop 44             [ 11 00 ]
+push 22  pop 00             [ 22 11 ]
+push 33  pop 11             [ 33 22 ]
+push 44  pop 22             [ 44 33 ]
+         pop 33             [ 44 ]
+         pop 44             [ ]
+*** Randomized test
+push 63          empty      [ 63 ]
+push 12                     [ 12 63 ]
+push aa  pop 63             [ aa 12 ]
+push 8f  pop 12             [ 8f aa ]
+push c5  pop aa             [ c5 8f ]
+push 65  pop 8f             [ 65 c5 ]
+push 20                     [ 20 65 c5 ]
+push 13  pop c5             [ 13 20 65 ]
+         pop 65             [ 13 20 ]
+push 1d  pop 20             [ 1d 13 ]
+push ca                     [ ca 1d 13 ]
+         pop 13             [ ca 1d ]
+push 2a                     [ 2a ca 1d ]
+         pop 1d             [ 2a ca ]
+         pop ca             [ 2a ]
+push 5b  pop 2a             [ 5b ]
+push d7  pop 5b             [ d7 ]
+push c2                     [ c2 d7 ]
+         pop d7             [ c2 ]
+         pop c2             [ ]
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 825  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 835  Scope: tb.monitor
+         pop ca        full [ ]
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 845  Scope: tb.monitor
+push 58  pop 2a             [ ]
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 855  Scope: tb.monitor
+push fa  pop 5b             [ ]
+ERROR: ./fifo_monitor.sv:54: 
+       Time: 865  Scope: tb.monitor
+push 2f                     [ 2f ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 875  Scope: tb.monitor
+push 5f  pop d7        full [ 5f ]
+push 65          empty      [ 65 5f ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 905  Scope: tb.monitor
+         pop 65             [ 65 ]
+push ab          empty      [ ab 65 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 925  Scope: tb.monitor
+push fd                     [ fd ab 65 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 935  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 945  Scope: tb.monitor
+         pop ab             [ fd ab ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 955  Scope: tb.monitor
+push 94                     [ 94 fd ab ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 965  Scope: tb.monitor
+push db  pop fd             [ db 94 fd ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 975  Scope: tb.monitor
+push 76                     [ 76 db 94 fd ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 985  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 995  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1005  Scope: tb.monitor
+         pop 94             [ 76 db 94 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1015  Scope: tb.monitor
+push 2e  pop db             [ 2e 76 db ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1025  Scope: tb.monitor
+push 29                     [ 29 2e 76 db ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1035  Scope: tb.monitor
+push 3d                     [ 3d 29 2e 76 db ]
+ERROR: ./fifo_monitor.sv:55: 
+       Time: 1045  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1045  Scope: tb.monitor
+push ba  pop 76             [ ba 3d 29 2e 76 ]
+ERROR: ./fifo_monitor.sv:55: 
+       Time: 1055  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1055  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:55: 
+       Time: 1065  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1065  Scope: tb.monitor
+         pop 2e             [ ba 3d 29 2e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1075  Scope: tb.monitor
+push b6                     [ b6 ba 3d 29 2e ]
+ERROR: ./fifo_monitor.sv:55: 
+       Time: 1085  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1085  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:55: 
+       Time: 1095  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1095  Scope: tb.monitor
+push cf                     [ cf b6 ba 3d 29 2e ]
+push 17          empty      [ 17 cf b6 ba 3d 29 2e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1115  Scope: tb.monitor
+push f5                     [ f5 17 cf b6 ba 3d 29 2e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1125  Scope: tb.monitor
+         pop 17             [ f5 17 cf b6 ba 3d 29 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1135  Scope: tb.monitor
+         pop f5             [ f5 17 cf b6 ba 3d ]
+push 4e          empty      [ 4e f5 17 cf b6 ba 3d ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1155  Scope: tb.monitor
+push 0e                     [ 0e 4e f5 17 cf b6 ba 3d ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1165  Scope: tb.monitor
+push 2a  pop 4e             [ 2a 0e 4e f5 17 cf b6 ba ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1175  Scope: tb.monitor
+push 79                     [ 79 2a 0e 4e f5 17 cf b6 ba ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1185  Scope: tb.monitor
+push 6b                     [ 6b 79 2a 0e 4e f5 17 cf b6 ba ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1195  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1205  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1215  Scope: tb.monitor
+push fa                     [ fa 6b 79 2a 0e 4e f5 17 cf b6 ba ]
+push 84          empty      [ 84 fa 6b 79 2a 0e 4e f5 17 cf b6 ba ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1235  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1245  Scope: tb.monitor
+push 0b                     [ 0b 84 fa 6b 79 2a 0e 4e f5 17 cf b6 ba ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1255  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1265  Scope: tb.monitor
+         pop 84             [ 0b 84 fa 6b 79 2a 0e 4e f5 17 cf b6 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1275  Scope: tb.monitor
+         pop 0b             [ 0b 84 fa 6b 79 2a 0e 4e f5 17 cf ]
+push 4b          empty      [ 4b 0b 84 fa 6b 79 2a 0e 4e f5 17 cf ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1295  Scope: tb.monitor
+push ec  pop 4b             [ ec 4b 0b 84 fa 6b 79 2a 0e 4e f5 17 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1305  Scope: tb.monitor
+push 41                     [ 41 ec 4b 0b 84 fa 6b 79 2a 0e 4e f5 17 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1315  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1325  Scope: tb.monitor
+push 04  pop ec             [ 04 41 ec 4b 0b 84 fa 6b 79 2a 0e 4e f5 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1335  Scope: tb.monitor
+push b8  pop 41             [ b8 04 41 ec 4b 0b 84 fa 6b 79 2a 0e 4e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1345  Scope: tb.monitor
+push 2b  pop 04             [ 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a 0e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1355  Scope: tb.monitor
+push a1                     [ a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a 0e ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1365  Scope: tb.monitor
+         pop b8             [ a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1375  Scope: tb.monitor
+push 96                     [ 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1385  Scope: tb.monitor
+push 2b                     [ 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1395  Scope: tb.monitor
+push 84                     [ 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+push 49          empty      [ 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1415  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1425  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1435  Scope: tb.monitor
+push 72                     [ 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 2a ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1445  Scope: tb.monitor
+push 86  pop 49             [ 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1455  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1465  Scope: tb.monitor
+push c0                     [ c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1475  Scope: tb.monitor
+push 3c                     [ 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1485  Scope: tb.monitor
+push e1                     [ e1 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b 79 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1495  Scope: tb.monitor
+         pop 72        full [ e1 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa 6b ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1505  Scope: tb.monitor
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1515  Scope: tb.monitor
+push 2c  pop 86             [ 2c e1 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 fa ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1525  Scope: tb.monitor
+push b6  pop c0             [ b6 2c e1 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b 84 ]
+ERROR: ./fifo_monitor.sv:64: 
+       Time: 1535  Scope: tb.monitor
+push 55  pop 3c             [ 55 b6 2c e1 3c c0 86 72 49 84 2b 96 a1 2b b8 04 41 ec 4b 0b ]
+./tb.sv PASS
