@@ -1,0 +1,16 @@
+Fitter Status : Failed - Wed Jul  2 11:48:45 2025
+Quartus Prime Version : 21.1.1 Build 850 06/23/2022 SJ Lite Edition
+Revision Name : sqrt_formula_distributor
+Top-level Entity Name : sqrt_formula_distributor
+Family : Cyclone IV E
+Device : EP4CE6E22C8
+Timing Models : Final
+Total logic elements : 43,123 / 6,272 ( 688 % )
+    Total combinational functions : 36,019 / 6,272 ( 574 % )
+    Dedicated logic registers : 13,706 / 6,272 ( 219 % )
+Total registers : 13706
+Total pins : 132 / 92 ( 143 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )
