@@ -19,84 +19,91 @@ module a_plus_b_using_fifos
     output [width - 1:0] sum_data
 );
 
-    //------------------------------------------------------------------------
+//inst 1
 
-    wire               a_down_valid;
-    wire               a_down_ready;
-    wire [width - 1:0] a_down_data;
+logic push_1;
+logic pop_1;
+logic [width-1:0] wd_1;
+logic [width-1:0] rd_1;
+logic empty_1;
+logic full_1;
 
-    //------------------------------------------------------------------------
+my_fifo
+#(.width(width), .depth(depth)) fifo_a (
+    .clk(clk),
+    .rst(rst),
+    .push (push_1),
+    .pop(pop_1),
+    .write_data(wd_1),
+    .read_data(rd_1),
+    .empty(empty_1),
+    .full(full_1)
+);
 
-    ff_fifo_wrapped_in_valid_ready
-    # (.width (width), .depth (depth))
-    fifo_a
-    (
-        .clk         ( clk          ),
-        .rst         ( rst          ),
+//inst 2
 
-        .up_valid    ( a_valid      ),
-        .up_ready    ( a_ready      ),
-        .up_data     ( a_data       ),
+logic push_2;
+logic pop_2;
+logic [width-1:0] wd_2;
+logic [width-1:0] rd_2;
+logic empty_2;
+logic full_2;
 
-        .down_valid  ( a_down_valid ),
-        .down_ready  ( a_down_ready ),
-        .down_data   ( a_down_data  )
-    );
+my_fifo
+#(.width(width), .depth(depth)) fifo_b (
+    .clk(clk),
+    .rst(rst),
+    .push (push_2),
+    .pop(pop_2),
+    .write_data(wd_2),
+    .read_data(rd_2),
+    .empty(empty_2),
+    .full(full_2)
+);
 
-    //------------------------------------------------------------------------
+//inst 3
 
-    wire               b_down_valid;
-    wire               b_down_ready;
-    wire [width - 1:0] b_down_data;
+logic push_3;
+logic pop_3;
+logic [width-1:0] wd_3;
+logic [width-1:0] rd_3;
+logic empty_3;
+logic full_3;
 
-    //------------------------------------------------------------------------
+my_fifo
+#(.width(width), .depth(depth)) fifo_out (
+    .clk(clk),
+    .rst(rst),
+    .push (push_3),
+    .pop(pop_3),
+    .write_data(wd_3),
+    .read_data(rd_3),
+    .empty(empty_3),
+    .full(full_3)
+);
 
-    ff_fifo_wrapped_in_valid_ready
-    # (.width (width), .depth (depth))
-    fifo_b
-    (
-        .clk         ( clk          ),
-        .rst         ( rst          ),
+logic [width-1:0] sum;
 
-        .up_valid    ( b_valid      ),
-        .up_ready    ( b_ready      ),
-        .up_data     ( b_data       ),
+assign wd_1 = a_data;
+assign wd_2 = b_data;
 
-        .down_valid  ( b_down_valid ),
-        .down_ready  ( b_down_ready ),
-        .down_data   ( b_down_data  )
-    );
+assign push_1 = a_valid && ~full_1;
+assign push_2 = b_valid && ~full_2;
 
-    //------------------------------------------------------------------------
+assign pop_1 = ~full_3 && ~empty_1 && ~empty_2;
+assign pop_2 = ~full_3 && ~empty_1 && ~empty_2;
 
-    // Task: Add logic using the template below
-    //
-    // wire               sum_up_valid = ...
-    // wire               sum_up_ready;
-    // wire [width - 1:0] sum_up_data  = ...
-    //
-    // assign a_down_ready = ...
-    // assign b_down_ready = ...
+assign a_ready = ~full_1;
+assign b_ready = ~full_2;
 
 
-    //------------------------------------------------------------------------
+assign sum = rd_1 + rd_2;
 
-    ff_fifo_wrapped_in_valid_ready
-    # (.width (width), .depth (depth))
-    fifo_sum
-    (
-        .clk         ( clk          ),
-        .rst         ( rst          ),
+assign push_3 = pop_1;
+assign wd_3 = sum;
 
-        .up_valid    ( sum_up_valid ),
-        .up_ready    ( sum_up_ready ),
-        .up_data     ( sum_up_data  ),
-
-        .down_valid  ( sum_valid    ),
-        .down_ready  ( sum_ready    ),
-        .down_data   ( sum_data     )
-    );
-
-    //------------------------------------------------------------------------
+assign sum_valid = ~empty_3;
+assign sum_data = rd_3;
+assign pop_3 = sum_ready & ~empty_3;
 
 endmodule
