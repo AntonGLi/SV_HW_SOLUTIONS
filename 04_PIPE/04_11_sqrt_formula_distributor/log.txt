@@ -1,0 +1,19 @@
+04_11_sqrt_formula_distributor.sv:76: error: res is not a valid l-value in tb.formula_1_impl_1_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:79: error: res is not a valid l-value in tb.formula_1_impl_1_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:86: error: res_vld is not a valid l-value in tb.formula_1_impl_1_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:15:      : res_vld is declared here as wire.
+04_11_sqrt_formula_distributor.sv:76: error: res is not a valid l-value in tb.formula_1_impl_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:79: error: res is not a valid l-value in tb.formula_1_impl_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:86: error: res_vld is not a valid l-value in tb.formula_1_impl_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:15:      : res_vld is declared here as wire.
+04_11_sqrt_formula_distributor.sv:76: error: res is not a valid l-value in tb.formula_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:79: error: res is not a valid l-value in tb.formula_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:16:      : res is declared here as wire.
+04_11_sqrt_formula_distributor.sv:86: error: res_vld is not a valid l-value in tb.formula_2_tb.if_homework_4_distributor.i_sqrt_formula_distributor.
+04_11_sqrt_formula_distributor.sv:15:      : res_vld is declared here as wire.
+9 error(s) during elaboration.
