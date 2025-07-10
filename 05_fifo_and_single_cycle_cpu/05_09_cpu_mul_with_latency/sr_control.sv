@@ -10,7 +10,7 @@
 //  for systemverilog-homework project.
 //
 
-`include "sr_cpu.svh"
+`include "sr_cpu.sv"
 
 module sr_control
 (
@@ -22,7 +22,9 @@ module sr_control
     output logic        regWrite,
     output logic        aluSrc,
     output logic        wdSrc,
-    output logic [ 2:0] aluControl
+    output logic [ 2:0] aluControl,
+	 input vld
+	 
 );
     logic          branch;
     logic          condZero;
@@ -49,6 +51,8 @@ module sr_control
 
             { `RVF7_ANY,  `RVF3_BEQ,  `RVOP_BEQ  } : begin branch = 1'b1; condZero = 1'b1; aluControl = `ALU_SUB; end
             { `RVF7_ANY,  `RVF3_BNE,  `RVOP_BNE  } : begin branch = 1'b1; aluControl = `ALU_SUB; end
+				
+				 { `RVF7_MUL,  `RVF3_MUL,  `RVOP_MUL  } : begin regWrite = vld; aluControl = `ALU_MUL; end
         endcase
     end
 
