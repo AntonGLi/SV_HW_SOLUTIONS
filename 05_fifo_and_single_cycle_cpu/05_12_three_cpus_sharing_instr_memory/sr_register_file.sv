@@ -10,7 +10,7 @@
 //  for systemverilog-homework project.
 //
 
-`include "sr_cpu.svh"
+`include "sr_cpu.sv"
 
 module sr_register_file
 (
@@ -32,6 +32,6 @@ module sr_register_file
     assign rd2 = (a2 != 0) ? rf [a2] : 32'b0;
 
     always_ff @ (posedge clk)
-        if (we3) rf [a3] <= wd3;
+        if(we3) rf [a3] <= wd3;
 
 endmodule

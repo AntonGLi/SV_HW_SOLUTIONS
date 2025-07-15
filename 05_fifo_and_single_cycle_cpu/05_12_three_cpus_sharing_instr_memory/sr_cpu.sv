@@ -10,135 +10,59 @@
 //  for systemverilog-homework project.
 //
 
-`include "sr_cpu.svh"
+`ifndef SR_CPU_SVH
+`define SR_CPU_SVH
 
-module sr_cpu
-(
-    input           clk,        // clock
-    input           rst,        // reset
+// ALU commands
 
-    input   [31:0]  rstPC,      // program counter set on reset
+`define ALU_ADD     3'b000
+`define ALU_OR      3'b001
+`define ALU_SRL     3'b010
+`define ALU_SLTU    3'b011
+`define ALU_SUB     3'b100
 
-    output  [31:0]  imAddr,     // instruction memory address
-    input   [31:0]  imData,     // instruction memory data
-    input           imDataVld,  // instruction memory data valid
+`define ALU_MUL	  3'b111
 
-    input   [ 4:0]  regAddr,    // debug access reg address
-    output  [31:0]  regData     // debug access reg data
-);
-    // control wires
+// Instruction opcode
 
-    wire        aluZero;
-    wire        pcSrc;
-    wire        regWrite;
-    wire        aluSrc;
-    wire        wdSrc;
-    wire  [2:0] aluControl;
+`define RVOP_ADDI   7'b0010011
+`define RVOP_BEQ    7'b1100011
+`define RVOP_LUI    7'b0110111
+`define RVOP_BNE    7'b1100011
+`define RVOP_ADD    7'b0110011
+`define RVOP_OR     7'b0110011
+`define RVOP_SRL    7'b0110011
+`define RVOP_SLTU   7'b0110011
+`define RVOP_SUB    7'b0110011
 
-    // instruction decode wires
+`define RVOP_MUL    7'b0110011
 
-    wire [ 6:0] cmdOp;
-    wire [ 4:0] rd;
-    wire [ 2:0] cmdF3;
-    wire [ 4:0] rs1;
-    wire [ 4:0] rs2;
-    wire [ 6:0] cmdF7;
-    wire [31:0] immI;
-    wire [31:0] immB;
-    wire [31:0] immU;
+`define RVOP_J    7'd111
 
-    // program counter
+// Instruction funct3
 
-    wire [31:0] pc;
-    wire [31:0] pcBranch = pc + immB;
-    wire [31:0] pcPlus4  = pc + 32'd4;
-    wire [31:0] pcNext   = pcSrc ? pcBranch : pcPlus4;
+`define RVF3_ADDI   3'b000
+`define RVF3_BEQ    3'b000
+`define RVF3_BNE    3'b001
+`define RVF3_ADD    3'b000
+`define RVF3_OR     3'b110
+`define RVF3_SRL    3'b101
+`define RVF3_SLTU   3'b011
+`define RVF3_SUB    3'b000
 
-    register_with_rst_value_and_enable r_pc
-    (
-        .clk      ( clk       ),
-        .rst      ( rst       ),
-        .rstValue ( rstPC     ),
-        .en       ( imDataVld ),
-        .d        ( pcNext    ),
-        .q        ( pc        )
-    );
+`define RVF3_MUL    3'b000
 
-    // program memory access
+`define RVF3_ANY    3'b???
 
-    assign imAddr = pc >> 2;
-    wire [31:0] instr = imData;
+// Instruction funct7
 
-    // instruction decode
+`define RVF7_ADD    7'b0000000
+`define RVF7_OR     7'b0000000
+`define RVF7_SRL    7'b0000000
+`define RVF7_SLTU   7'b0000000
+`define RVF7_SUB    7'b0100000
 
-    sr_decode id
-    (
-        .instr      ( instr       ),
-        .cmdOp      ( cmdOp       ),
-        .rd         ( rd          ),
-        .cmdF3      ( cmdF3       ),
-        .rs1        ( rs1         ),
-        .rs2        ( rs2         ),
-        .cmdF7      ( cmdF7       ),
-        .immI       ( immI        ),
-        .immB       ( immB        ),
-        .immU       ( immU        )
-    );
+`define RVF7_MUL    7'b0000001
+`define RVF7_ANY    7'b???????
 
-    // register file
-
-    wire [31:0] rd0;
-    wire [31:0] rd1;
-    wire [31:0] rd2;
-    wire [31:0] wd3;
-
-    sr_register_file i_rf
-    (
-        .clk        ( clk                  ),
-        .a0         ( regAddr              ),
-        .a1         ( rs1                  ),
-        .a2         ( rs2                  ),
-        .a3         ( rd                   ),
-        .rd0        ( rd0                  ),
-        .rd1        ( rd1                  ),
-        .rd2        ( rd2                  ),
-        .wd3        ( wd3                  ),
-        .we3        ( regWrite & imDataVld )
-    );
-
-    // alu
-
-    wire [31:0] srcB = aluSrc ? immI : rd2;
-    wire [31:0] aluResult;
-
-    sr_alu alu
-    (
-        .srcA       ( rd1         ),
-        .srcB       ( srcB        ),
-        .oper       ( aluControl  ),
-        .zero       ( aluZero     ),
-        .result     ( aluResult   )
-    );
-
-    assign wd3 = wdSrc ? immU : aluResult;
-
-    // control
-
-    sr_control sm_control
-    (
-        .cmdOp      ( cmdOp       ),
-        .cmdF3      ( cmdF3       ),
-        .cmdF7      ( cmdF7       ),
-        .aluZero    ( aluZero     ),
-        .pcSrc      ( pcSrc       ),
-        .regWrite   ( regWrite    ),
-        .aluSrc     ( aluSrc      ),
-        .wdSrc      ( wdSrc       ),
-        .aluControl ( aluControl  )
-    );
-
-    // debug register access
-
-    assign regData = (regAddr != '0) ? rd0 : pc;
-
-endmodule
+`endif  // `ifndef SR_CPU_SVH

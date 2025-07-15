@@ -10,7 +10,7 @@ parameter NUM_RD_PORTS = 3 // <8 restriction from arbiter
 input clk,
 input rst,
 
-input  logic [NUM_BANKS-1:0] [SHIRINA_VSEH_BANOK -1:0]   ra_cpu,
+input  logic [NUM_BANKS-1:0]    [SHIRINA_VSEH_BANOK -1:0]   ra_cpu,
 output logic [NUM_RD_PORTS-1:0] [                   31:0]   rd_cpu,
 
 input  logic [NUM_RD_PORTS-1:0]                            req_cpu,
